@@ -2,7 +2,7 @@ class Board
   # ruby utility method for creating setters and getters
   attr_accessor :player_one, :player_two
 
-  def initialize(board_state, player_one, player_two)
+  def initialize(player_one, player_two)
     player_one.opponent = player_two
     player_two.opponent = player_one
   end
@@ -16,7 +16,9 @@ class Board
   end
 
   def boards_for_moves_of_player(player)
-    
+    0.upto(5).map do |x|
+
+    end 
   end
   
 end

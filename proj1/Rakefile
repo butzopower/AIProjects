@@ -3,10 +3,8 @@ task :environment do
 end
 
 task :minimax1 => :environment do
-  player1 = Player.new
-  player2 = Player.new
-  player1.score = 19
-  player2.score = 14
+  player1 = Player.new([0, 3, 0, 5, 0, 0], 19)
+  player2 = Player.new([2, 2, 0, 0, 3, 0], 14)
   board = Board.new([0, 3, 0, 5, 0, 0, 2, 2, 0, 0, 3, 0], player1, player2)
 end
 

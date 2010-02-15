@@ -15,7 +15,7 @@ module Minimax
 
     return board.evaluate_for_player(player) if horizon == 0
 
-    return board.boards_for_moves_of_player(player).map {|board| -self.search(board, player.opponent, horizon -1)}.max
+    return board.boards_for_moves_of_player(player).map {|new_board| -self.search(new_board, new_board.first_player.opponent, horizon -1)}.max
   end
 
 end
