@@ -35,21 +35,22 @@ class Row
       remaining -= 1
     end
 
-    if remaining == 0 && self.player == applying_player.opponent
+    if remaining == 0 && self.player == applying_player.opponent #if we finish on our opponent, score
       score_for_player_at_position(applying_player, range.last)
     end
 
-    if remaining > 0
+    if remaining > 0 # we still have more, put em on the other side
       self.player.opponent.row.apply_moves_from_player(applying_player, applied_position, remaining)
     end
   end
 
   def score_for_player_at_position(player, position)
     unless position == 5 && houses.all?{|x| x >= 2 && x <= 3} # don't do anything if we would wipe the whole board
-      while position >= 0 && (houses[position] == 2 || houses[position] == 3)
-        player.score += houses[position]
-        houses[position] = 0
-        position -= 1
+      pos = position
+      while pos >= 0 && (houses[pos] == 2 || houses[pos] == 3) # score while we haven't hit the end or something not 2 or 3
+        player.score += houses[pos]
+        houses[pos] = 0
+        pos -= 1
       end
     end
   end

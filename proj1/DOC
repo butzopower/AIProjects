@@ -1,0 +1,93 @@
+Project 1
+Brian Butz
+
+Usage:
+  All the tests are in Rakefile
+
+  You can run these from the command line with:
+    'rake minimax1', or 'rake abminimax2', etc
+
+Issues:
+  There seems to be a bug in applying the actual points when capturing, which is
+  making some of the results very unreliable.  Test Case 2 is especially
+  affected by this, since the game consistantly ends in a draw.  This is also
+  making the alphabeta search always return alpha, and so it's not even
+  considering what path to take once everything has played out.
+
+  I think I'm passing a reference where I mean to be passing a value at some
+  place, which is completely killing this process.  If I could figure out where,
+  I'm pretty sure this would solve all the other problems.
+
+Reasoning:
+  I chose the straight-foward board state evaluator mentioned in class, the
+  difference in the player's score versus his opponents.  While simple, unless
+  the horizon is very small, it is very relative to the abstract state of the
+  board.
+
+  My approach to move generation turn out to maybe not be the best approach.
+  Instead of evaluating the entire board, I evaluate each player's side, and if
+  that player reaches the end and still has remaining pieces, you just send the
+  same function with the remaining pieces to your opponents board.  The problem
+  with this is that you need to pass the player around who did the initial turn
+  to check whether you need to skip a house, or to check if any houses were
+  captured when ending in the opponents side.
+
+  I tried an OO approach on this project, and would probably spend a bit more
+  time thinking out my hierarchy next time.
+
+  I have something like:
+
+                [Board] (should have been called Game or something)
+                - "bunch of game state methods"
+                + Players
+                |
+                ---------[Player]
+                         - "has a score, a row, and an opponent"
+                         + Row
+                         |
+                         ------------[Row]
+                                     - "the players part of the board"
+                                     + Houses (array of 6)
+                                               
+
+  This turns out to not entirely work in practice, as you need to constantly
+  realloc objects every time your recurse, since the objects are mutable outside
+  their stack call.
+
+Output:
+
+rake minimax1
+  Best move is: 
+  4
+  Calls to search: 
+  178
+
+rake minimax2
+  Best move is: 
+  6
+  Calls to search: 
+  226
+
+rake minimax3
+  Best move is: 
+  3
+  Calls to search: 
+  226
+
+rake bminimax1
+  Best move is:
+  COULD NOT FIND MOVE
+  Calls to search:
+  81
+
+rake abminimax2
+  Best move is:
+  COULD NOT FIND MOVE
+  Calls to search:
+  135
+
+rake abminimax3
+  Best move is:
+  COULD NOT FIND MOVE
+  Calls to search:
+  109

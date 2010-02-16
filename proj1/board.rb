@@ -12,8 +12,8 @@ class Board
     player.score > 24 
   end
 
-  def evaluate_for_player(player)
-    player.score - player.opponent.score
+  def evaluate_for_player(player) # the BSE, based on the difference of the scores
+    player.score - player.opponent.score 
   end
 
   def boards_for_moves_of_player(player)
@@ -21,6 +21,8 @@ class Board
 
     if valid_moves.empty? # game is over, can't make valid move
       # score is current score plus all pieces
+      #
+      
       p1_score = player.score + player.row.houses.inject(0){|x, y| x + y}
       p2_score = player.opponent.score + player.opponent.row.houses.inject(0){|x, y| x + y} 
 
